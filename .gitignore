@@ -1,0 +1,9 @@
+old/
+test-trainer/
+raw_downloads/
+working_files/
+trainer-checkpoints/
+finetuned/
+data/train.csv
+data/test.csv
+tweet-seqs/
