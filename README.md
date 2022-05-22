@@ -70,7 +70,7 @@ classifier("Washington Gives Ankara An Ultimatum | Trump Makes BigTime Overture
 
 You can also provide `classifier` a list of strings, each of which contains a tweet sequence like the above.
 
-However, if you wish to retrain the model and test inference locally on your own machine (or a hosted platform), you can use the following code from the `notebooks` folder:
+However, if you have retrained the model and wish to test inference locally on your own machine (or a hosted platform), you can use the following code from the `notebooks` folder:
 
 ```python
 from transformers import AutoModelForSequenceClassification
@@ -102,6 +102,18 @@ All data underwent the following process:
 The training sequences were further divided into training and validation datasets. We then used the data to finetune the model `distilbert-base-uncased` from HuggingFace. The training process is documented in notebook 5.
 
 ## Results
+The final model provides us with the following metrics, as evaluated on the test dataset of 31,280 tweet sequences:
+- **Accuracy:** 0.9993
+- **F1:** 0.9985
+- **Loss:** 0.0039
+
+These values are unusually high, but have been found repeatedly with different sampling and data combinations. For a proof of concept this works well, but there are certain questions we would like to investigate in future iterations of the project, including:
+- Are there any obvious telltales for natural or state operator tweets that the model is picking up on (e.g., particular word distributions, or the presence or particular odd characters that we didn't notice in our cleaning, or other characteristics of the respective data dumps, like truncation)?
+- How big of an effect does recency bias in the natural tweet dataset affect the results? (For example, references to war in Ukraine wouldn't be expected for state operators in 2019-2021, for obvious reasons).
+
+However, there is good reason to think that the model is picking up on valid contrasting characteristics of the two kinds of tweets. A manual examination reveals fairly obvious patterns, including the use of formal title language with occasional English grammar mistakes in state operator tweets, and informal language and slang in natural tweets. The pattern of topics is quite different too--looking back at state operator tweet timelines, we generally find a consistent history of tweets that fulfill a particular agenda.
+
+In general, there are certainly questions to investigate and datasets to refine, but we are confident that even in this iteration the model is picking up on real signals from state operators.
 
 ## Limitations
 Although this model demonstrates very high accuracy on the validation and test datasets, our data has a recency bias that may have affected some of the results. Specifically, the state operator tweets were mostly from 2019-2021 (with a small proportion scattered in from previous years), whereas the normal user tweets resulted from searches done in May 2022 (and expanded by looking at each users' previous 50 tweets). Thus, the model may be taking recent news topics into account when performing inference.
@@ -111,5 +123,6 @@ However, spot checks do seem to show good results even when topics not specific 
 As Twitter releases new datasets of identified state operators, we will test these and see how our model performs. Updated findings will be posted to this readme.
 
 ## Contributors
-Curt Tigges: data collection & preparation; model training; model deployment
-Bryce Meyer: browser extensions
+**Curt Tigges:** data collection & preparation; model training; model deployment
+
+**Bryce Meyer:** browser extensions
