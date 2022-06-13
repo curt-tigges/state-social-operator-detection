@@ -126,3 +126,6 @@ As Twitter releases new datasets of identified state operators, we will test the
 **Curt Tigges:** data collection & preparation; model training; model deployment
 
 **Bryce Meyer:** browser extensions
+
+## Contact
+You can reach me at projects@curttigges.com.
